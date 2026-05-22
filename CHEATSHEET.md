@@ -1,142 +1,189 @@
-# XMA Mac Setup — Cheatsheet
+# Mac Setup Guide
 
-## Install
+## What did this install?
 
-```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/XMA-Agency-Org/xma-mac-setup/main/setup.sh)
-```
-
-After install: restart terminal, then run `claude` to authenticate.
+Your Mac now has a set of tools that make working in the terminal faster and smarter. Here's everything you need to know to use them.
 
 ---
 
-## Terminal — Kitty
+## Step 1 — Open your terminal
 
-| Shortcut | Action |
-|---|---|
-| `cmd+t` | New tab (same dir) |
-| `cmd+w` | Close tab |
-| `cmd+]` / `cmd+[` | Next / prev tab |
-| `cmd+enter` | New window (same dir) |
-| `cmd+d` | Split vertical |
-| `cmd+shift+d` | Split horizontal |
-| `cmd+=` / `cmd+-` | Font size up / down |
-| `cmd+0` | Reset font size |
-| `ctrl+cmd+f` | Toggle fullscreen |
+You now have **Kitty** — a fast, modern terminal app. Open it from your Applications folder or Spotlight (`cmd+space` → type "Kitty" → press Enter).
 
-Theme: **Catppuccin Mocha** · Font: **JetBrains Mono Nerd Font 14pt**
+This is where you type commands. Think of it like texting your computer.
 
 ---
 
-## Shell — Zsh
+## Step 2 — Authenticate Claude
 
-| Shortcut | Action |
-|---|---|
-| `ctrl+space` | Accept autosuggestion |
-| `ctrl+e` | Execute autosuggestion |
-| `↑` / `↓` | History substring search |
-| `ctrl+r` | Fuzzy search history (fzf) |
-| `ctrl+t` | Fuzzy search files (fzf) |
-| `tab` | fzf-tab completion with preview |
-| `<` / `>` | Switch fzf-tab groups |
+The first time, you need to log in:
+
+```
+claude
+```
+
+Type that and press Enter. Follow the instructions to connect your Anthropic account.
 
 ---
 
-## Aliases
+## Using Kitty (your terminal app)
 
-### Navigation
-| Alias | Command |
-|---|---|
-| `work` | `cd ~/Work` |
-| `..` | `cd ..` |
-| `...` | `cd ../..` |
+### Tabs — like browser tabs
 
-### Files
-| Alias | Replaces |
+| What you want | Keys |
 |---|---|
-| `ls` | `lsd` |
-| `ll` | `lsd -lah --git` |
-| `lt` | `lsd --tree --depth=2` |
-| `cat` | `bat` (syntax highlighting) |
-| `find` | `fd` |
-| `grep` | `ripgrep` |
+| Open a new tab | `cmd+t` |
+| Close current tab | `cmd+w` |
+| Switch to next tab | `cmd+]` |
+| Switch to previous tab | `cmd+[` |
 
-### Git
-| Alias | Command |
-|---|---|
-| `g` | `git` |
-| `gs` | `git status` |
-| `ga` | `git add` |
-| `gc` | `git commit` |
-| `gp` | `git push` |
-| `gl` | `git pull` |
-| `gd` | `git diff` |
-| `glog` | `git log --oneline --graph --decorate` |
+### Split screen — two terminals side by side
 
-### Claude
-| Alias | Command |
+| What you want | Keys |
 |---|---|
-| `cc` | `claude` |
+| Split screen left/right | `cmd+d` |
+| Split screen top/bottom | `cmd+shift+d` |
+
+### Other
+
+| What you want | Keys |
+|---|---|
+| Make text bigger | `cmd+=` |
+| Make text smaller | `cmd+-` |
+| Reset text size | `cmd+0` |
+| Fullscreen | `ctrl+cmd+f` |
 
 ---
 
-## Tools
+## Typing commands — tips
 
-| Tool | What it does |
-|---|---|
-| **starship** | Prompt — shows git, node, python, rust status |
-| **zoxide** | Smarter `cd` — type partial dir names |
-| **fzf** | Fuzzy finder for files, history, completions |
-| **fzf-tab** | Tab completions via fzf with file preview |
-| **lsd** | `ls` with icons and color |
-| **bat** | `cat` with syntax highlighting |
-| **fd** | Fast `find` replacement |
-| **ripgrep** | Fast `grep` replacement |
-| **fnm** | Node version manager |
-| **gen** | AI image generation CLI |
+### Autocomplete
+Start typing a command or folder name and press **Tab** — a menu pops up with options. Use arrow keys to pick one, press Enter to confirm.
 
-### Zoxide tips
-```bash
-cd proj        # jumps to highest-ranked dir matching "proj"
-cd             # interactive fzf picker
-zi             # interactive fzf jump
-```
+### Autosuggestions
+As you type, you'll see a faded suggestion based on your history.
+- Press **ctrl+space** to accept it
+- Keep typing to ignore it
 
-### fd examples
-```bash
-fd .env                  # find by name
-fd -e ts                 # find by extension
-fd -t d src              # find directories named src
-```
+### Search your history
+Forgot a command you ran before? Press **ctrl+r** and start typing — it fuzzy-searches everything you've ever typed.
 
-### ripgrep examples
-```bash
-rg "TODO"                # search current dir
-rg "func" --type ts      # search only .ts files
-rg -l "pattern"          # list matching files only
-```
+### Arrow keys
+Press **↑** to go back through previous commands. Press **↓** to go forward.
 
 ---
 
-## Claude
+## Navigating folders
 
-```bash
-claude               # start chat
-cc                   # same, short alias
-claude /help         # list slash commands
-claude skill add X   # install a skill
+The terminal starts in your home folder (`/Users/yourname`). Think of folders like directories on a map.
+
+| What you type | What it does |
+|---|---|
+| `work` | Go to your Work folder |
+| `..` | Go up one folder |
+| `...` | Go up two folders |
+| `cd foldername` | Go into a folder called "foldername" |
+| `ls` | See what's in the current folder |
+| `ll` | See files with details (size, date, permissions) |
+| `lt` | See files as a tree (shows subfolders) |
+
+**Pro tip:** Type part of a folder name and press Tab — it will complete it for you or show options.
+
+---
+
+## Reading files
+
+| What you type | What it does |
+|---|---|
+| `cat filename.txt` | Show contents of a file with colors |
+| `find filename` | Search for a file by name |
+| `grep "word" filename` | Search for a word inside a file |
+
+---
+
+## Git — saving and sharing code
+
+Git is a tool for saving versions of your work. Think of it like "track changes" in Google Docs.
+
+| What you type | What it does |
+|---|---|
+| `gs` | See what files you've changed |
+| `ga filename` | Mark a file ready to save |
+| `gc -m "message"` | Save a snapshot with a description |
+| `gp` | Upload your changes to GitHub |
+| `gl` | Download latest changes from GitHub |
+| `gd` | See exactly what you changed |
+| `glog` | See full history of saves |
+
+### Basic git workflow
 ```
-
-### Gen skill (AI images)
-```bash
-/gen a cat sitting on a desk    # generate image
+gs              ← check what changed
+ga .            ← mark everything
+gc -m "my changes"   ← save snapshot
+gp              ← upload to GitHub
 ```
 
 ---
 
-## Prompt (Starship)
+## Claude AI
 
-Two-line prompt shows:
-- Current directory (truncated to 4 levels)
-- Git branch + status (`?` untracked · `!` modified · `+` staged · `✘` deleted)
-- Node / Bun / Python / Rust version (when in relevant project)
+| What you type | What it does |
+|---|---|
+| `cc` | Open Claude chat in terminal |
+| `claude` | Same thing, full name |
+| `claude /help` | See all available commands |
+
+### Generate an image with AI
+```
+/gen a sunset over mountains
+```
+Type `/gen` followed by a description of what you want. The image will be saved to your current folder.
+
+---
+
+## Prompt — what the blinking line means
+
+Your prompt (the line where you type) shows useful info:
+
+```
+╭─  ~/Work/my-project  on  main (!+?)
+╰─ ❯
+```
+
+| Symbol | Meaning |
+|---|---|
+| `~/Work/my-project` | You are inside this folder |
+| ` main` | You are on the "main" git branch |
+| `!` | You have unsaved file changes |
+| `+` | You have changes ready to save |
+| `?` | There are new untracked files |
+| `❯` | Type your command here |
+| `❯` (red) | Last command failed |
+
+---
+
+## Something went wrong?
+
+- **Command not found** — check spelling, make sure you pressed Enter
+- **Permission denied** — add `sudo` before the command (it runs as admin)
+- **Stuck / nothing happening** — press `ctrl+c` to cancel and get your prompt back
+- **Accidentally in a weird mode** — press `ctrl+c` or type `q` and press Enter
+
+---
+
+## Quick reference card
+
+```
+cc          → chat with Claude
+work        → go to Work folder
+ls / ll     → list files
+cat file    → read a file
+find name   → search for file
+gs          → git status
+ga .        → stage all changes
+gc -m "msg" → commit changes
+gp          → push to GitHub
+ctrl+space  → accept suggestion
+ctrl+r      → search command history
+tab         → autocomplete
+```
