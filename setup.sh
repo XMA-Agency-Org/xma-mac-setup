@@ -17,6 +17,15 @@ success() { echo -e "${GREEN}✓${RESET} $*"; }
 warn()    { echo -e "${YELLOW}⚠${RESET} $*"; }
 step()    { echo -e "\n${BOLD}━━━ $* ━━━${RESET}"; }
 
+backup() {
+  local file="$1"
+  if [[ -f "$file" ]]; then
+    local dest="${file}.backup.$(date +%Y%m%d_%H%M%S)"
+    cp "$file" "$dest"
+    warn "Backed up existing $(basename "$file") → $(basename "$dest")"
+  fi
+}
+
 # ─── Homebrew ───────────────────────────────
 step "Homebrew"
 if ! command -v brew &>/dev/null; then
@@ -113,6 +122,7 @@ install_plugin "fzf-tab"                      "https://github.com/Aloxaf/fzf-tab
 # ─── .zshrc ─────────────────────────────────
 step ".zshrc"
 
+backup "$HOME/.zshrc"
 cat > "$HOME/.zshrc" << 'ZSHRC'
 # ─── PATH ───────────────────────────────────
 if [[ -f /opt/homebrew/bin/brew ]]; then
@@ -212,6 +222,7 @@ success ".zshrc written"
 # ─── Starship config ────────────────────────
 step "Starship theme"
 mkdir -p "$HOME/.config"
+backup "$HOME/.config/starship.toml"
 cat > "$HOME/.config/starship.toml" << 'STARSHIP'
 "$schema" = 'https://starship.rs/config-schema.json'
 
@@ -293,6 +304,7 @@ success "Starship configured"
 step "Kitty config"
 mkdir -p "$HOME/.config/kitty"
 
+backup "$HOME/.config/kitty/kitty.conf"
 cat > "$HOME/.config/kitty/kitty.conf" << 'KITTY'
 # ─── Font ───────────────────────────────────
 font_family      JetBrainsMono Nerd Font
@@ -427,6 +439,7 @@ success "Kitty configured with Catppuccin Mocha"
 step "Yazi config"
 mkdir -p "$HOME/.config/yazi"
 
+backup "$HOME/.config/yazi/keymap.toml"
 cat > "$HOME/.config/yazi/keymap.toml" << 'YAZI'
 [[mgr.prepend_keymap]]
 on   = "w"
