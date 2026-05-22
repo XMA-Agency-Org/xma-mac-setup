@@ -52,6 +52,7 @@ BREW_PACKAGES=(
   jq
   node
   fnm
+  yazi
 )
 
 for pkg in "${BREW_PACKAGES[@]}"; do
@@ -203,6 +204,7 @@ alias ..="cd .."
 alias ...="cd ../.."
 
 alias cc="claude"
+alias y="yazi"
 ZSHRC
 
 success ".zshrc written"
@@ -420,6 +422,19 @@ color15 #A6ADC8
 CATPPUCCIN
 
 success "Kitty configured with Catppuccin Mocha"
+
+# ─── Yazi config ────────────────────────────
+step "Yazi config"
+mkdir -p "$HOME/.config/yazi"
+
+cat > "$HOME/.config/yazi/keymap.toml" << 'YAZI'
+[[mgr.prepend_keymap]]
+on   = "w"
+run  = 'shell "$SHELL" --block'
+desc = "Open shell here"
+YAZI
+
+success "Yazi configured"
 
 # ─── Claude CLI ─────────────────────────────
 step "Claude CLI"
