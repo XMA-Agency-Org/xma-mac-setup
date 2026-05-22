@@ -55,7 +55,7 @@ BREW_PACKAGES=(
 )
 
 for pkg in "${BREW_PACKAGES[@]}"; do
-  if brew list "$pkg" &>/dev/null; then
+  if brew list --formula "$pkg" &>/dev/null 2>&1; then
     info "$pkg already installed, skipping"
   else
     info "Installing $pkg..."
@@ -72,7 +72,7 @@ BREW_CASKS=(
 )
 
 for cask in "${BREW_CASKS[@]}"; do
-  if brew list --cask "$cask" &>/dev/null; then
+  if brew list --cask "$cask" &>/dev/null 2>&1; then
     info "$cask already installed, skipping"
   else
     info "Installing $cask..."
