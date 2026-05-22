@@ -464,7 +464,9 @@ success "macOS defaults applied"
 # ─── Set zsh as default shell ────────────────
 step "Default shell"
 ZSH_PATH="$(which zsh)"
-if [[ "$SHELL" != "$ZSH_PATH" ]]; then
+if [[ "${CI:-}" == "true" ]]; then
+  success "CI environment — skipping chsh"
+elif [[ "$SHELL" != "$ZSH_PATH" ]]; then
   info "Setting zsh as default shell..."
   chsh -s "$ZSH_PATH"
   success "Default shell set to zsh"
