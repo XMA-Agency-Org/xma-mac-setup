@@ -418,6 +418,7 @@
   <a href="#navigation">Navigation</a>
   <a href="#git">Git</a>
   <a href="#claude">Claude AI</a>
+  <a href="#aliases">Aliases</a>
   <a href="#prompt">Your Prompt</a>
   <a href="#trouble">Troubleshooting</a>
   <a href="#quickref">Quick Ref</a>
@@ -535,13 +536,13 @@
     <div class="table-wrap">
       <table class="cmd-table">
         <tbody>
-          <tr><td>work</td><td>Go to your Work folder</td></tr>
+          <tr><td>cd ~/Work</td><td>Go to your Work folder</td></tr>
           <tr><td>cd foldername</td><td>Go into a folder</td></tr>
-          <tr><td>..</td><td>Go up one folder</td></tr>
-          <tr><td>...</td><td>Go up two folders</td></tr>
-          <tr><td>ls</td><td>List files in current folder</td></tr>
-          <tr><td>ll</td><td>List files with details (size, date)</td></tr>
-          <tr><td>lt</td><td>Show files as a tree (including subfolders)</td></tr>
+          <tr><td>cd ..</td><td>Go up one folder</td></tr>
+          <tr><td>cd ../..</td><td>Go up two folders</td></tr>
+          <tr><td>lsd</td><td>List files in current folder</td></tr>
+          <tr><td>lsd -lah --git</td><td>List files with details (size, date, git status)</td></tr>
+          <tr><td>lsd --tree --depth=2</td><td>Show files as a tree (including subfolders)</td></tr>
         </tbody>
       </table>
     </div>
@@ -554,9 +555,9 @@
     <div class="table-wrap">
       <table class="cmd-table">
         <tbody>
-          <tr><td>cat filename</td><td>Show the contents of a file with colours</td></tr>
-          <tr><td>find filename</td><td>Search for a file by name</td></tr>
-          <tr><td>grep "word" file</td><td>Search for a word inside a file</td></tr>
+          <tr><td>bat filename</td><td>Show the contents of a file with syntax highlighting</td></tr>
+          <tr><td>fd filename</td><td>Search for a file by name</td></tr>
+          <tr><td>rg "word" file</td><td>Search for a word inside a file</td></tr>
         </tbody>
       </table>
     </div>
@@ -570,14 +571,14 @@
     <div class="table-wrap">
       <table class="cmd-table">
         <tbody>
-          <tr><td>gs</td><td>See what files you've changed</td></tr>
-          <tr><td>ga .</td><td>Mark all changes as ready to save</td></tr>
-          <tr><td>ga filename</td><td>Mark one specific file as ready to save</td></tr>
-          <tr><td>gc -m "message"</td><td>Save a snapshot with a description of what you did</td></tr>
-          <tr><td>gp</td><td>Upload your saved snapshots to GitHub</td></tr>
-          <tr><td>gl</td><td>Download latest changes from GitHub</td></tr>
-          <tr><td>gd</td><td>See exactly what lines changed in your files</td></tr>
-          <tr><td>glog</td><td>See the full history of all saved snapshots</td></tr>
+          <tr><td>git status</td><td>See what files you've changed</td></tr>
+          <tr><td>git add .</td><td>Mark all changes as ready to save</td></tr>
+          <tr><td>git add filename</td><td>Mark one specific file as ready to save</td></tr>
+          <tr><td>git commit -m "message"</td><td>Save a snapshot with a description of what you did</td></tr>
+          <tr><td>git push</td><td>Upload your saved snapshots to GitHub</td></tr>
+          <tr><td>git pull</td><td>Download latest changes from GitHub</td></tr>
+          <tr><td>git diff</td><td>See exactly what lines changed in your files</td></tr>
+          <tr><td>git log --oneline --graph</td><td>See the full history of all saved snapshots</td></tr>
         </tbody>
       </table>
     </div>
@@ -585,16 +586,16 @@
     <h3>The basic workflow</h3>
     <p>Every time you finish a chunk of work:</p>
     <pre><span class="comment"># 1. Check what changed</span>
-gs
+git status
 
 <span class="comment"># 2. Mark everything ready</span>
-ga .
+git add .
 
 <span class="comment"># 3. Save a snapshot with a message</span>
-gc -m "what I changed"
+git commit -m "what I changed"
 
 <span class="comment"># 4. Upload to GitHub</span>
-gp</pre>
+git push</pre>
   </section>
 
   <!-- ── Claude ── -->
@@ -618,6 +619,58 @@ gp</pre>
 /gen a sunset over mountains, cinematic
 /gen a flat illustration of a laptop on a desk</pre>
     <p>The image is saved in your current folder.</p>
+  </section>
+
+  <!-- ── Aliases ── -->
+  <section id="aliases">
+    <h2>Aliases — Type Less, Do More</h2>
+    <p>Once you're comfortable with the commands above, you can use these shortcuts. They do exactly the same thing — just faster to type. You don't have to use them, but your teammates will.</p>
+
+    <h3>Navigation &amp; files</h3>
+    <div class="table-wrap">
+      <table class="cmd-table">
+        <tbody>
+          <tr><td>work</td><td>Same as <code style="color:var(--subtext)">cd ~/Work</code></td></tr>
+          <tr><td>..</td><td>Same as <code style="color:var(--subtext)">cd ..</code></td></tr>
+          <tr><td>...</td><td>Same as <code style="color:var(--subtext)">cd ../..</code></td></tr>
+          <tr><td>ls</td><td>Same as <code style="color:var(--subtext)">lsd</code></td></tr>
+          <tr><td>ll</td><td>Same as <code style="color:var(--subtext)">lsd -lah --git</code></td></tr>
+          <tr><td>lt</td><td>Same as <code style="color:var(--subtext)">lsd --tree --depth=2</code></td></tr>
+          <tr><td>cat filename</td><td>Same as <code style="color:var(--subtext)">bat filename</code></td></tr>
+          <tr><td>find name</td><td>Same as <code style="color:var(--subtext)">fd name</code></td></tr>
+          <tr><td>grep "word"</td><td>Same as <code style="color:var(--subtext)">rg "word"</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Git</h3>
+    <div class="table-wrap">
+      <table class="cmd-table">
+        <tbody>
+          <tr><td>g</td><td>Same as <code style="color:var(--subtext)">git</code></td></tr>
+          <tr><td>gs</td><td>Same as <code style="color:var(--subtext)">git status</code></td></tr>
+          <tr><td>ga .</td><td>Same as <code style="color:var(--subtext)">git add .</code></td></tr>
+          <tr><td>gc -m "msg"</td><td>Same as <code style="color:var(--subtext)">git commit -m "msg"</code></td></tr>
+          <tr><td>gp</td><td>Same as <code style="color:var(--subtext)">git push</code></td></tr>
+          <tr><td>gl</td><td>Same as <code style="color:var(--subtext)">git pull</code></td></tr>
+          <tr><td>gd</td><td>Same as <code style="color:var(--subtext)">git diff</code></td></tr>
+          <tr><td>glog</td><td>Same as <code style="color:var(--subtext)">git log --oneline --graph --decorate</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Claude</h3>
+    <div class="table-wrap">
+      <table class="cmd-table">
+        <tbody>
+          <tr><td>cc</td><td>Same as <code style="color:var(--subtext)">claude</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tip">
+      <strong>Example:</strong> Instead of typing <code style="color:var(--subtext)">git status</code> → <code style="color:var(--subtext)">git add .</code> → <code style="color:var(--subtext)">git commit -m "fix"</code> → <code style="color:var(--subtext)">git push</code>, you can type <code style="color:var(--green)">gs</code> → <code style="color:var(--green)">ga .</code> → <code style="color:var(--green)">gc -m "fix"</code> → <code style="color:var(--green)">gp</code>. Same result, half the typing.
+    </div>
   </section>
 
   <!-- ── Prompt ── -->
@@ -675,12 +728,12 @@ gp</pre>
 
     <div class="trouble-item">
       <div class="problem">I closed the terminal and lost what I was doing</div>
-      <div class="solution">Your files are safe — they're saved on disk. Open Kitty again, navigate back to your folder with <code>work</code> or <code>cd</code>, and carry on.</div>
+      <div class="solution">Your files are safe — they're saved on disk. Open Kitty again, navigate back to your folder with <code>cd ~/Work</code>, and carry on.</div>
     </div>
 
     <div class="trouble-item">
       <div class="problem">Git says "nothing to commit"</div>
-      <div class="solution">You haven't made any changes since your last save. That's fine — run <code>gs</code> to see the current state.</div>
+      <div class="solution">You haven't made any changes since your last save. That's fine — run <code>git status</code> to see the current state.</div>
     </div>
   </section>
 
@@ -698,27 +751,27 @@ gp</pre>
 
       <div class="quick-ref-group">
         <h4>Navigation</h4>
-        <div class="item"><code>work</code><span>go to Work folder</span></div>
+        <div class="item"><code>cd ~/Work</code><span>go to Work folder</span></div>
         <div class="item"><code>cd name</code><span>enter folder</span></div>
-        <div class="item"><code>..</code><span>go up one level</span></div>
-        <div class="item"><code>ls</code><span>list files</span></div>
-        <div class="item"><code>ll</code><span>list with details</span></div>
+        <div class="item"><code>cd ..</code><span>go up one level</span></div>
+        <div class="item"><code>lsd</code><span>list files</span></div>
+        <div class="item"><code>lsd -lah</code><span>list with details</span></div>
       </div>
 
       <div class="quick-ref-group">
         <h4>Files</h4>
-        <div class="item"><code>cat file</code><span>read a file</span></div>
-        <div class="item"><code>find name</code><span>search by name</span></div>
-        <div class="item"><code>grep "x" file</code><span>search inside file</span></div>
+        <div class="item"><code>bat file</code><span>read a file</span></div>
+        <div class="item"><code>fd name</code><span>search by name</span></div>
+        <div class="item"><code>rg "x" file</code><span>search inside file</span></div>
       </div>
 
       <div class="quick-ref-group">
         <h4>Git</h4>
-        <div class="item"><code>gs</code><span>see changes</span></div>
-        <div class="item"><code>ga .</code><span>stage all</span></div>
-        <div class="item"><code>gc -m "msg"</code><span>save snapshot</span></div>
-        <div class="item"><code>gp</code><span>push to GitHub</span></div>
-        <div class="item"><code>gl</code><span>pull from GitHub</span></div>
+        <div class="item"><code>git status</code><span>see changes</span></div>
+        <div class="item"><code>git add .</code><span>stage all</span></div>
+        <div class="item"><code>git commit -m</code><span>save snapshot</span></div>
+        <div class="item"><code>git push</code><span>push to GitHub</span></div>
+        <div class="item"><code>git pull</code><span>pull from GitHub</span></div>
       </div>
 
       <div class="quick-ref-group">
