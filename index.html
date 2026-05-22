@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>XMA Mac Setup — Guide</title>
+  <style>
+    :root {
+      --bg:        #1e1e2e;
+      --surface:   #181825;
+      --overlay:   #313244;
+      --muted:     #45475a;
+      --text:      #cdd6f4;
+      --subtext:   #a6adc8;
+      --lavender:  #b4befe;
+      --blue:      #89b4fa;
+      --sapphire:  #74c7ec;
+      --sky:       #89dceb;
+      --teal:      #94e2d5;
+      --green:     #a6e3a1;
+      --yellow:    #f9e2af;
+      --peach:     #fab387;
+      --red:       #f38ba8;
+      --mauve:     #cba6f7;
+      --pink:      #f5c2e7;
+
+      --radius: 10px;
+      --font-mono: "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.7;
+      padding: 0 0 80px;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--overlay);
+      padding: 40px 24px 32px;
+      text-align: center;
+    }
+
+    header .logo {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--mauve);
+      margin-bottom: 12px;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    header p {
+      color: var(--subtext);
+      font-size: 14px;
+      max-width: 480px;
+      margin: 0 auto 24px;
+    }
+
+    .install-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--overlay);
+      border: 1px solid var(--muted);
+      border-radius: var(--radius);
+      padding: 12px 18px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--green);
+      max-width: 100%;
+      overflow-x: auto;
+    }
+
+    .install-box span { color: var(--subtext); user-select: none; }
+
+    .copy-btn {
+      background: var(--muted);
+      border: none;
+      border-radius: 6px;
+      color: var(--text);
+      cursor: pointer;
+      font-size: 11px;
+      padding: 4px 10px;
+      white-space: nowrap;
+      transition: background 0.15s;
+    }
+    .copy-btn:hover { background: var(--lavender); color: var(--bg); }
+
+    /* ── Nav tabs ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--surface);
+      border-bottom: 1px solid var(--overlay);
+      display: flex;
+      gap: 2px;
+      padding: 0 16px;
+      overflow-x: auto;
+    }
+
+    nav a {
+      color: var(--subtext);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 14px 16px;
+      border-bottom: 2px solid transparent;
+      white-space: nowrap;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    nav a:hover { color: var(--text); }
+    nav a.active { color: var(--mauve); border-bottom-color: var(--mauve); }
+
+    /* ── Layout ── */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    section {
+      padding-top: 56px;
+    }
+
+    section h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--mauve);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      font-size: 11px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    section h2::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--overlay);
+    }
+
+    section h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--lavender);
+      margin: 28px 0 12px;
+    }
+
+    section p {
+      color: var(--subtext);
+      margin-bottom: 16px;
+      max-width: 640px;
+    }
+
+    /* ── Cards ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--overlay);
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+
+    .card h4 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .card p {
+      font-size: 13px;
+      color: var(--subtext);
+      margin: 0;
+    }
+
+    /* ── Shortcut tables ── */
+    .shortcut-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 8px;
+    }
+
+    .shortcut-table tr {
+      border-bottom: 1px solid var(--overlay);
+    }
+
+    .shortcut-table tr:last-child { border-bottom: none; }
+
+    .shortcut-table td {
+      padding: 10px 12px;
+      font-size: 14px;
+      vertical-align: middle;
+    }
+
+    .shortcut-table td:first-child {
+      width: 220px;
+    }
+
+    .shortcut-table td:last-child {
+      color: var(--subtext);
+    }
+
+    .shortcut-table tbody tr:hover td {
+      background: var(--surface);
+    }
+
+    kbd {
+      display: inline-block;
+      background: var(--overlay);
+      border: 1px solid var(--muted);
+      border-radius: 5px;
+      padding: 2px 8px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--sky);
+      white-space: nowrap;
+    }
+
+    /* ── Command tables ── */
+    .cmd-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 8px;
+    }
+
+    .cmd-table tr { border-bottom: 1px solid var(--overlay); }
+    .cmd-table tr:last-child { border-bottom: none; }
+
+    .cmd-table td {
+      padding: 10px 12px;
+      font-size: 14px;
+      vertical-align: top;
+    }
+
+    .cmd-table td:first-child {
+      width: 200px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--green);
+      white-space: nowrap;
+    }
+
+    .cmd-table td:last-child { color: var(--subtext); }
+    .cmd-table tbody tr:hover td { background: var(--surface); }
+
+    /* ── Code blocks ── */
+    pre {
+      background: var(--surface);
+      border: 1px solid var(--overlay);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--green);
+      overflow-x: auto;
+      margin: 12px 0;
+      line-height: 1.8;
+    }
+
+    pre .comment { color: var(--muted); }
+
+    /* ── Tip box ── */
+    .tip {
+      background: color-mix(in srgb, var(--blue) 10%, var(--surface));
+      border-left: 3px solid var(--blue);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 14px 18px;
+      margin: 16px 0;
+      font-size: 14px;
+      color: var(--subtext);
+    }
+
+    .tip strong { color: var(--blue); }
+
+    /* ── Prompt demo ── */
+    .prompt-demo {
+      background: var(--surface);
+      border: 1px solid var(--overlay);
+      border-radius: var(--radius);
+      padding: 20px;
+      font-family: var(--font-mono);
+      font-size: 14px;
+      margin: 16px 0;
+    }
+
+    .prompt-demo .line { margin-bottom: 4px; }
+    .prompt-demo .dim   { color: var(--muted); }
+    .prompt-demo .cyan  { color: var(--sapphire); }
+    .prompt-demo .purple{ color: var(--mauve); }
+    .prompt-demo .red   { color: var(--red); }
+    .prompt-demo .green { color: var(--green); }
+    .prompt-demo .yellow{ color: var(--yellow); }
+
+    /* ── Trouble section ── */
+    .trouble-item {
+      background: var(--surface);
+      border: 1px solid var(--overlay);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      margin-bottom: 10px;
+    }
+
+    .trouble-item .problem {
+      font-weight: 600;
+      color: var(--peach);
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    .trouble-item .solution {
+      color: var(--subtext);
+      font-size: 14px;
+    }
+
+    .trouble-item code {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      background: var(--overlay);
+      padding: 1px 6px;
+      border-radius: 4px;
+      color: var(--green);
+    }
+
+    /* ── Quick ref ── */
+    .quick-ref {
+      background: var(--surface);
+      border: 1px solid var(--overlay);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .quick-ref-group h4 {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--mauve);
+      margin-bottom: 10px;
+    }
+
+    .quick-ref-group .item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      padding: 3px 0;
+      font-size: 13px;
+    }
+
+    .quick-ref-group .item code {
+      font-family: var(--font-mono);
+      color: var(--green);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .quick-ref-group .item span {
+      color: var(--subtext);
+      text-align: right;
+      font-size: 12px;
+    }
+
+    /* ── Table wrapper for scroll ── */
+    .table-wrap {
+      background: var(--surface);
+      border: 1px solid var(--overlay);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">XMA Agency</div>
+  <h1>Mac Setup Guide</h1>
+  <p>Everything you need to know after running the setup script. No experience needed.</p>
+  <div class="install-box">
+    <span>$</span>
+    <code id="install-cmd">bash &lt;(curl -fsSL https://raw.githubusercontent.com/XMA-Agency-Org/xma-mac-setup/main/setup.sh)</code>
+    <button class="copy-btn" onclick="copyInstall()">Copy</button>
+  </div>
+</header>
+
+<nav id="nav">
+  <a href="#start" class="active">Getting Started</a>
+  <a href="#kitty">Kitty Terminal</a>
+  <a href="#shell">Shell Tips</a>
+  <a href="#navigation">Navigation</a>
+  <a href="#git">Git</a>
+  <a href="#claude">Claude AI</a>
+  <a href="#prompt">Your Prompt</a>
+  <a href="#trouble">Troubleshooting</a>
+  <a href="#quickref">Quick Ref</a>
+</nav>
+
+<main>
+
+  <!-- ── Getting Started ── -->
+  <section id="start">
+    <h2>Getting Started</h2>
+    <p>After the script finishes, you need to do two things:</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <h4>1. Restart your terminal</h4>
+        <p>Close Kitty and open it again. This loads all your new settings.</p>
+      </div>
+      <div class="card">
+        <h4>2. Log in to Claude</h4>
+        <p>Type <strong style="color:var(--green);font-family:var(--font-mono)">claude</strong> and press Enter. Follow the steps to connect your account.</p>
+      </div>
+    </div>
+
+    <div class="tip">
+      <strong>What is a terminal?</strong> It's a text-based way to talk to your computer. Instead of clicking icons, you type short commands. It sounds scary but you only need to know a handful of them.
+    </div>
+
+    <h3>How to open Kitty</h3>
+    <p>Press <kbd>cmd+space</kbd>, type <strong>Kitty</strong>, press Enter. That's it — your terminal is open.</p>
+  </section>
+
+  <!-- ── Kitty ── -->
+  <section id="kitty">
+    <h2>Kitty Terminal</h2>
+    <p>Kitty is your terminal app. It supports tabs and split screens so you can have multiple things open at once.</p>
+
+    <h3>Tabs</h3>
+    <div class="table-wrap">
+      <table class="shortcut-table">
+        <tbody>
+          <tr><td><kbd>cmd+t</kbd></td><td>Open a new tab (stays in same folder)</td></tr>
+          <tr><td><kbd>cmd+w</kbd></td><td>Close current tab</td></tr>
+          <tr><td><kbd>cmd+]</kbd></td><td>Switch to next tab</td></tr>
+          <tr><td><kbd>cmd+[</kbd></td><td>Switch to previous tab</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Split screen</h3>
+    <p>Work in two places at the same time in the same window.</p>
+    <div class="table-wrap">
+      <table class="shortcut-table">
+        <tbody>
+          <tr><td><kbd>cmd+d</kbd></td><td>Split screen left and right</td></tr>
+          <tr><td><kbd>cmd+shift+d</kbd></td><td>Split screen top and bottom</td></tr>
+          <tr><td><kbd>cmd+enter</kbd></td><td>Open new window (same folder)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Other</h3>
+    <div class="table-wrap">
+      <table class="shortcut-table">
+        <tbody>
+          <tr><td><kbd>cmd+=</kbd></td><td>Make text bigger</td></tr>
+          <tr><td><kbd>cmd+-</kbd></td><td>Make text smaller</td></tr>
+          <tr><td><kbd>cmd+0</kbd></td><td>Reset text to default size</td></tr>
+          <tr><td><kbd>ctrl+cmd+f</kbd></td><td>Toggle fullscreen</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── Shell Tips ── -->
+  <section id="shell">
+    <h2>Shell Tips</h2>
+    <p>These keyboard shortcuts work anywhere in the terminal while you're typing.</p>
+
+    <h3>Autosuggestions</h3>
+    <p>As you type, a faded grey suggestion appears based on what you've typed before. It's like autocomplete on your phone.</p>
+    <div class="table-wrap">
+      <table class="shortcut-table">
+        <tbody>
+          <tr><td><kbd>ctrl+space</kbd></td><td>Accept the suggestion</td></tr>
+          <tr><td><kbd>ctrl+e</kbd></td><td>Accept and immediately run it</td></tr>
+          <tr><td>(keep typing)</td><td>Ignore the suggestion</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>History</h3>
+    <p>The terminal remembers every command you've typed.</p>
+    <div class="table-wrap">
+      <table class="shortcut-table">
+        <tbody>
+          <tr><td><kbd>↑</kbd> / <kbd>↓</kbd></td><td>Go back and forward through previous commands</td></tr>
+          <tr><td><kbd>ctrl+r</kbd></td><td>Search through your entire history — just start typing</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Tab completion</h3>
+    <p>Press <kbd>Tab</kbd> while typing a file or folder name to get a visual picker. Use arrow keys to select, Enter to confirm.</p>
+
+    <div class="tip">
+      <strong>Stuck?</strong> Press <kbd>ctrl+c</kbd> at any time to cancel whatever is happening and get back to a fresh prompt.
+    </div>
+  </section>
+
+  <!-- ── Navigation ── -->
+  <section id="navigation">
+    <h2>Navigating Folders</h2>
+    <p>When you open the terminal, you start in your home folder. Use these commands to move around — like clicking through folders in Finder, but with text.</p>
+
+    <div class="table-wrap">
+      <table class="cmd-table">
+        <tbody>
+          <tr><td>work</td><td>Go to your Work folder</td></tr>
+          <tr><td>cd foldername</td><td>Go into a folder</td></tr>
+          <tr><td>..</td><td>Go up one folder</td></tr>
+          <tr><td>...</td><td>Go up two folders</td></tr>
+          <tr><td>ls</td><td>List files in current folder</td></tr>
+          <tr><td>ll</td><td>List files with details (size, date)</td></tr>
+          <tr><td>lt</td><td>Show files as a tree (including subfolders)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="tip">
+      <strong>Pro tip:</strong> You don't have to type full folder names. Type the first few letters and press <kbd>Tab</kbd> — it will complete it automatically.
+    </div>
+
+    <h3>Reading files</h3>
+    <div class="table-wrap">
+      <table class="cmd-table">
+        <tbody>
+          <tr><td>cat filename</td><td>Show the contents of a file with colours</td></tr>
+          <tr><td>find filename</td><td>Search for a file by name</td></tr>
+          <tr><td>grep "word" file</td><td>Search for a word inside a file</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── Git ── -->
+  <section id="git">
+    <h2>Git — Saving Your Work</h2>
+    <p>Git is like "track changes" in Google Docs — it saves snapshots of your work so you can go back in time, and share code with your team on GitHub.</p>
+
+    <div class="table-wrap">
+      <table class="cmd-table">
+        <tbody>
+          <tr><td>gs</td><td>See what files you've changed</td></tr>
+          <tr><td>ga .</td><td>Mark all changes as ready to save</td></tr>
+          <tr><td>ga filename</td><td>Mark one specific file as ready to save</td></tr>
+          <tr><td>gc -m "message"</td><td>Save a snapshot with a description of what you did</td></tr>
+          <tr><td>gp</td><td>Upload your saved snapshots to GitHub</td></tr>
+          <tr><td>gl</td><td>Download latest changes from GitHub</td></tr>
+          <tr><td>gd</td><td>See exactly what lines changed in your files</td></tr>
+          <tr><td>glog</td><td>See the full history of all saved snapshots</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>The basic workflow</h3>
+    <p>Every time you finish a chunk of work:</p>
+    <pre><span class="comment"># 1. Check what changed</span>
+gs
+
+<span class="comment"># 2. Mark everything ready</span>
+ga .
+
+<span class="comment"># 3. Save a snapshot with a message</span>
+gc -m "what I changed"
+
+<span class="comment"># 4. Upload to GitHub</span>
+gp</pre>
+  </section>
+
+  <!-- ── Claude ── -->
+  <section id="claude">
+    <h2>Claude AI</h2>
+    <p>Claude is your AI assistant, available directly in the terminal.</p>
+
+    <div class="table-wrap">
+      <table class="cmd-table">
+        <tbody>
+          <tr><td>cc</td><td>Open Claude chat (short version)</td></tr>
+          <tr><td>claude</td><td>Same — open Claude chat</td></tr>
+          <tr><td>claude /help</td><td>See all available commands and skills</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Generate images with AI</h3>
+    <p>Type <strong style="color:var(--green);font-family:var(--font-mono)">/gen</strong> followed by a description of what you want:</p>
+    <pre>/gen a minimalist logo for a creative agency
+/gen a sunset over mountains, cinematic
+/gen a flat illustration of a laptop on a desk</pre>
+    <p>The image is saved in your current folder.</p>
+  </section>
+
+  <!-- ── Prompt ── -->
+  <section id="prompt">
+    <h2>Understanding Your Prompt</h2>
+    <p>The line where you type shows useful information about where you are and what's happening with your code.</p>
+
+    <div class="prompt-demo">
+      <div class="line">
+        <span class="dim">╭─ </span><span class="dim"> </span><span class="cyan">~/Work/my-project</span><span class="dim"> on </span><span class="purple"> main</span><span class="yellow"> (!+?)</span>
+      </div>
+      <div class="line">
+        <span class="dim">╰─ </span><span class="green">❯</span>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table class="cmd-table">
+        <tbody>
+          <tr><td>~/Work/my-project</td><td>You are inside this folder</td></tr>
+          <tr><td> main</td><td>You are on the "main" git branch</td></tr>
+          <tr><td>!</td><td>You have unsaved changes in your files</td></tr>
+          <tr><td>+</td><td>You have changes ready to commit</td></tr>
+          <tr><td>?</td><td>There are new files git doesn't know about yet</td></tr>
+          <tr><td>❯ (green)</td><td>Last command worked — ready for input</td></tr>
+          <tr><td>❯ (red)</td><td>Last command failed</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── Troubleshooting ── -->
+  <section id="trouble">
+    <h2>Troubleshooting</h2>
+
+    <div class="trouble-item">
+      <div class="problem">command not found</div>
+      <div class="solution">The command is misspelled, or the tool isn't installed. Check your spelling and try again.</div>
+    </div>
+
+    <div class="trouble-item">
+      <div class="problem">Nothing is happening / cursor is blinking but won't respond</div>
+      <div class="solution">The terminal is waiting for something or stuck. Press <code>ctrl+c</code> to cancel and get back to a normal prompt.</div>
+    </div>
+
+    <div class="trouble-item">
+      <div class="problem">Permission denied</div>
+      <div class="solution">You need admin rights. Add <code>sudo</code> before your command and press Enter. It will ask for your Mac password.</div>
+    </div>
+
+    <div class="trouble-item">
+      <div class="problem">Accidentally opened something strange (full screen text, colon at bottom)</div>
+      <div class="solution">You're in a viewer. Press <code>q</code> to quit and return to normal.</div>
+    </div>
+
+    <div class="trouble-item">
+      <div class="problem">I closed the terminal and lost what I was doing</div>
+      <div class="solution">Your files are safe — they're saved on disk. Open Kitty again, navigate back to your folder with <code>work</code> or <code>cd</code>, and carry on.</div>
+    </div>
+
+    <div class="trouble-item">
+      <div class="problem">Git says "nothing to commit"</div>
+      <div class="solution">You haven't made any changes since your last save. That's fine — run <code>gs</code> to see the current state.</div>
+    </div>
+  </section>
+
+  <!-- ── Quick ref ── -->
+  <section id="quickref">
+    <h2>Quick Reference</h2>
+
+    <div class="quick-ref">
+      <div class="quick-ref-group">
+        <h4>Claude</h4>
+        <div class="item"><code>cc</code><span>open Claude</span></div>
+        <div class="item"><code>claude /help</code><span>all commands</span></div>
+        <div class="item"><code>/gen ...</code><span>generate image</span></div>
+      </div>
+
+      <div class="quick-ref-group">
+        <h4>Navigation</h4>
+        <div class="item"><code>work</code><span>go to Work folder</span></div>
+        <div class="item"><code>cd name</code><span>enter folder</span></div>
+        <div class="item"><code>..</code><span>go up one level</span></div>
+        <div class="item"><code>ls</code><span>list files</span></div>
+        <div class="item"><code>ll</code><span>list with details</span></div>
+      </div>
+
+      <div class="quick-ref-group">
+        <h4>Files</h4>
+        <div class="item"><code>cat file</code><span>read a file</span></div>
+        <div class="item"><code>find name</code><span>search by name</span></div>
+        <div class="item"><code>grep "x" file</code><span>search inside file</span></div>
+      </div>
+
+      <div class="quick-ref-group">
+        <h4>Git</h4>
+        <div class="item"><code>gs</code><span>see changes</span></div>
+        <div class="item"><code>ga .</code><span>stage all</span></div>
+        <div class="item"><code>gc -m "msg"</code><span>save snapshot</span></div>
+        <div class="item"><code>gp</code><span>push to GitHub</span></div>
+        <div class="item"><code>gl</code><span>pull from GitHub</span></div>
+      </div>
+
+      <div class="quick-ref-group">
+        <h4>Keyboard</h4>
+        <div class="item"><code>ctrl+space</code><span>accept suggestion</span></div>
+        <div class="item"><code>ctrl+r</code><span>search history</span></div>
+        <div class="item"><code>tab</code><span>autocomplete</span></div>
+        <div class="item"><code>ctrl+c</code><span>cancel / escape</span></div>
+        <div class="item"><code>↑ ↓</code><span>prev/next command</span></div>
+      </div>
+
+      <div class="quick-ref-group">
+        <h4>Kitty</h4>
+        <div class="item"><code>cmd+t</code><span>new tab</span></div>
+        <div class="item"><code>cmd+d</code><span>split vertical</span></div>
+        <div class="item"><code>cmd+] / [</code><span>switch tabs</span></div>
+        <div class="item"><code>cmd+= / -</code><span>font size</span></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  function copyInstall() {
+    const cmd = `bash <(curl -fsSL https://raw.githubusercontent.com/XMA-Agency-Org/xma-mac-setup/main/setup.sh)`;
+    navigator.clipboard.writeText(cmd).then(() => {
+      const btn = document.querySelector('.copy-btn');
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy', 2000);
+    });
+  }
+
+  // Active nav highlight on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('nav a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(a => a.classList.remove('active'));
+        const active = document.querySelector(`nav a[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
