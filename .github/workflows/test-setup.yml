@@ -1,0 +1,22 @@
+name: Test setup.sh
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - setup.sh
+
+jobs:
+  test:
+    runs-on: macos-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run setup.sh
+        run: bash setup.sh
+        env:
+          CI: true
+          HOMEBREW_NO_AUTO_UPDATE: 1
+          HOMEBREW_NO_ANALYTICS: 1
