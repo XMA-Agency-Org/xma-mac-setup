@@ -50,7 +50,6 @@ BREW_PACKAGES=(
   ripgrep
   fd
   jq
-  bun
   node
   fnm
 )
@@ -121,8 +120,7 @@ elif [[ -f /usr/local/bin/brew ]]; then
   eval "$(/usr/local/bin/brew shellenv)"
 fi
 
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 if command -v fnm &>/dev/null; then
   eval "$(fnm env --use-on-cd --shell zsh)"
@@ -203,11 +201,6 @@ alias gd="git diff"
 alias work="cd ~/Work"
 alias ..="cd .."
 alias ...="cd ../.."
-
-alias bi="bun install"
-alias br="bun run"
-alias ba="bun add"
-alias bd="bun dev"
 
 alias cc="claude"
 ZSHRC
