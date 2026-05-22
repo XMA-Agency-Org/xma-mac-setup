@@ -15,26 +15,36 @@ After the script finishes, restart your terminal and run `claude` to log in.
 | Category | Tools |
 |---|---|
 | Package manager | Homebrew |
-| Runtime | Node.js (via fnm), Bun |
+| Runtime | Node.js (via fnm) |
 | Terminal | Kitty, Zsh, Starship prompt |
-| Shell plugins | zsh-autosuggestions, zsh-syntax-highlighting, fzf-tab, zoxide, fzf |
-| Git | Git, lazygit, delta (diff viewer) |
-| AI | Claude Code CLI |
-| Dev tools | bat, eza, ripgrep, fd, jq, gh |
+| Shell plugins | zsh-autosuggestions, zsh-syntax-highlighting, zsh-history-substring-search, zsh-completions, fzf-tab, zoxide, fzf |
+| File manager | Yazi |
+| AI | Claude Code CLI, gen (image generation) |
+| Dev tools | lsd, bat, ripgrep, fd, jq |
 | Fonts | JetBrains Mono Nerd Font |
 
 ## What Gets Configured
 
-- `.zshrc` with aliases, plugins, and prompt
-- Kitty terminal with Catppuccin Mocha theme
-- Git global config (delta pager, useful defaults)
-- macOS system defaults (key repeat, Dock, etc.)
-- Claude Code global settings and skills
+- `.zshrc` — aliases, plugins, keybindings, PATH
+- Kitty — Catppuccin Mocha theme, JetBrains Mono, split/tab shortcuts
+- Starship — two-line prompt with git, node, python, rust status
+- Yazi — `w` key opens a shell in current directory
+- macOS defaults — fast key repeat, Finder improvements, no autocorrect
+
+## Aliases
+
+| Alias | Command |
+|---|---|
+| `y` | `yazi` |
+| `cc` | `claude` |
+| `ls` / `ll` / `lt` | `lsd` variants |
+| `cat` | `bat` |
+| `find` | `fd` |
+| `grep` | `rg` |
+| `gs` `ga` `gc` `gp` `gl` `gd` `glog` | git shortcuts |
+| `work` | `cd ~/Work` |
+| `..` / `...` | `cd ..` / `cd ../..` |
 
 ## Guide
 
-Open `index.html` in a browser for the full beginner-friendly reference — shortcuts, commands, git workflow, troubleshooting.
-
-## CI
-
-Every push to `setup.sh` runs the script on a fresh `macos-latest` GitHub Actions runner.
+Open `index.html` in a browser for the full beginner-friendly reference — shortcuts, commands, aliases, git workflow, troubleshooting.
